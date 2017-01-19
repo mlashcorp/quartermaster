@@ -1,0 +1,14 @@
+tracker-env/bin/pip install flask-login
+tracker-env/bin/pip install flask-openid
+tracker-env/bin/pip install flask-mail
+tracker-env/bin/pip install flask-sqlalchemy
+tracker-env/bin/pip install sqlalchemy-migrate
+tracker-env/bin/pip install flask-whooshalchemy
+tracker-env/bin/pip install flask-wtf
+tracker-env/bin/pip install flask-babel
+tracker-env/bin/pip install guess_language
+tracker-env/bin/pip install flipflop
+tracker-env/bin/pip install coverage
+tracker-env/bin/pip install flask-admin
+tracker-env/bin/pip install flask-mongoengine
+tracker-env/bin/pip install apscheduler

@@ -1,0 +1,107 @@
+
+{% macro render_field(field, div_class,label_class) %}
+   	<div class="{{div_class|safe}} form-group">
+		<label class={{label_class}}>{{field.label}}:</label>
+		
+		{% if field.type in ['DateTimeField','DateField'] %}
+			{{ field(class_="datepicker form-control")}}
+		{% else %}
+			{{ field(class_="form-control")}}
+		{% endif %}
+	  	{% if field.errors or field.help_text %}
+	    	<span class="help-inline">
+	    	{% if field.errors %}
+	      		{{ field.errors|join(' ') }}
+	    	{% else %}
+	      		{{ field.help_text }}
+	    	{% endif %}
+	    	</span>
+	  {% endif %}
+   </div>
+{% endmacro %}
+
+
+{% macro render_textarea(field, div_class,label_class) %}
+   	<div class="{{div_class|safe}} form-group">
+		<label class={{label_class}}>{{field.label}}:</label>
+		<textarea class="form-control" id="{{field.name}}" name="{{field.name}}">{{field.data if field.data != None}}</textarea>
+		{% if field.errors or field.help_text %}
+	    	<span class="help-inline">
+	    	{% if field.errors %}
+	      		{{ field.errors|join(' ') }}
+	    	{% else %}
+	      		{{ field.help_text }}
+	    	{% endif %}
+	    	</span>
+		{% endif %}
+   	</div>
+{% endmacro %}
+			
+{% macro render_daterange(label, field1, field2, div_class) %}
+	
+	<div class="{{div_class|safe}} form-group">
+		<label>{{label}}</label>
+		
+		<div class="input-daterange input-group" id="datepicker">
+	    	<input type="text" class="input-sm form-control" name="{{field1.name}}" value="{{field1.data if field1.data != None}}"/>
+	    	<span class="input-group-addon">to</span>
+	    	<input type="text" class="input-sm form-control" name="{{field2.name}}" value="{{field2.data if field2.data != None}}"/>
+	    </div>
+	</div>	
+{% endmacro %}
+
+{% macro render_date(field, div_class) %}
+<div class="{{div_class|safe}} form-group">
+		<label>{{field.label}} </label>
+
+<div id="datepicker-component" class="input-group date col-sm-8">
+                      <input type="text" class="form-control"><span class="input-group-addon">
+												<i class="fa fa-calendar"></i></span>
+                    </div>
+				</div>
+{% endmacro %}
+
+{% macro render_toggle(field, div_class) %}
+	<div class="{{div_class|safe}} form-group">
+		<label>{{field.label}} </label>
+		<input type="checkbox" data-init-plugin="switchery" data-size="small" data-color="primary" checked="checked" />
+</div>
+{% endmacro %}
+
+<!-- Note: We need to override the id field to multi!! -->
+{% macro render_multi(field, div_class, label_class) %}
+	<div class="{{div_class|safe}} form-group">
+		<label class={{label_class}}>{{field.label}}:</label>
+		{{ field(class_="full-width multiple_choice")}}
+</div>
+{% endmacro %}
+
+{% macro render(form) -%}
+<fieldset>
+{% for field in form %}
+{% if field.type in ['CSRFTokenField', 'HiddenField'] %}
+  {{ field() }}
+{% else %}
+  <div class="clearfix {% if field.errors %}error{% endif %}">
+    {{ field.label }}
+    <div class="input">
+      {% if field.name == "description" %}
+        <textarea id="description" name="description">{{ field.value }}</textarea>
+      {% else %}
+        {{ field() }}
+      {% endif %}
+      {% if field.errors or field.help_text %}
+        <span class="help-inline">
+        {% if field.errors %}
+          {{ field.errors|join(' ') }}
+        {% else %}
+          {{ field.help_text }}
+        {% endif %}
+        </span>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+{% endfor %}
+</fieldset>
+{% endmacro %}

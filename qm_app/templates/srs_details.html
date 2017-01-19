@@ -1,0 +1,11 @@
+{% from "_formhelpers.html" import render_field, render_textarea %}
+
+<table class="table table-bordered table-striped table-condensed">
+	<tr>
+		<td width="20%">Requirement Id: <a href="{{ url_for( 'srs_overview', srs_id=srs.srs_id ) }}"><strong>{{ srs.srs_id }}</strong></td>
+		<td>Created: <strong>{{ srs.created }}</strong></td>
+	</tr>
+	<tr>
+		<td colspan="2" >Description:  <strong>{{ srs.description }}</strong></td>
+	</tr>
+</table>

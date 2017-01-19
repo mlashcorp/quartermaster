@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block menus %}
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<legend>Software Release Report for {{ release.safe_url_id() }}</legend>
+		{% include 'release_details.html' %} 
+	</div>
+	
+	<div class="row top10">
+		<legend>Implemented Issues</legend>
+		
+		{% if issues|length > 0 %}
+			{% for issue in issues %}
+				{% include 'issue_details.html' %}
+			{% endfor %}
+		{% else %}
+			No issues found.
+		{% endif %}
+	</div>
+	
+	
+	<div class="row top10">
+		<legend>Software Acceptance Tests</legend>
+		
+		{% if tests|length > 0 %}
+			{% for test in tests %}
+				{% include 'test_details.html' %}
+			{% endfor %}
+		{% else %}
+			No tests found.
+		{% endif %}
+	</div>
+
+
+{% endblock %}

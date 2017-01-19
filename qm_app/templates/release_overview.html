@@ -1,0 +1,57 @@
+{% extends "base_layout.html" %}
+{% block content %}
+
+<div class="container">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details-{{release.safe_url_id()}}">Details</a></li>
+        <li><a data-toggle="tab" href="#edit-{{release.safe_url_id()}}">Edit</a></li>
+    </ul>
+
+	<div class="tab-content">
+	
+	   	<div id="details-{{release.safe_url_id()}}" class="tab-pane fade in active">
+			<div class="row">
+				<legend>Release {{release}} Overview </legend> 
+				<a class="col-md-2 col-md-push-11" href="{{ url_for("release_report", package=release.package.code, major=release.major_version, minor=release.minor_version, revision=release.revision_version) }}">  
+					release report  
+				</a>
+				{% include 'release_details.html' %} 
+			</div>
+			
+			<div class="row top10">
+				<legend>Related Issues</legend>
+				
+				{% if issues|length > 0 %}
+					{% for issue in issues %}
+						{% include 'issue_details.html' %}
+					{% endfor %}
+				{% endif %}
+				                
+                {% if issues_aux|length > 0 %}
+                    {% for issue in issues_aux %}
+                        {% include 'issue_details.html' %}
+                    {% endfor %}
+                {% endif %}
+			</div>
+			
+			<div class="row top10">
+				<legend>Related Tests</legend>
+				
+				{% if tests|length > 0 %}
+					{% for test in tests %}
+						{% include 'test_details.html' %}
+					{% endfor %}
+				{% else %}
+					No tests found.
+				{% endif %}
+			</div>
+		</div>
+	
+		<div id="edit-{{release.safe_url_id()}}" class="tab-pane fade">
+				{% include 'release_edit.html' %}
+		</div>
+		
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,218 @@
+{% extends "base_layout.html" %}
+
+{% block userdata %}
+<span class="semi-bold">{{username}}</span> 
+            </div>
+            <div class="dropdown pull-right">
+              <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="thumbnail-wrapper d32 circular inline m-t-5">
+                <img src="{{ picture }}" alt="" data-src="{{ picture }}" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="32" height="32">
+            </span>
+              </button>
+{% endblock %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+{% from "_formhelpers.html" import render_toggle %}
+{% from "_formhelpers.html" import render_date %}
+{% from "_formhelpers.html" import render_textarea %}
+{% from "_formhelpers.html" import render_multi %}
+
+
+<!-- START PAGE CONTENT -->
+          <!-- START CONTAINER FLUID -->
+            <div id="rootwizard" >
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
+                <li class="active">
+                  <a data-toggle="tab" href="#tab1"><i class="fa fa-briefcase tab-icon"></i> <span>New release</span></a>
+                </li>
+                <li class="">
+                  <a data-toggle="tab" href="#tab2"><i class="fa fa-cubes tab-icon"></i> <span>Issues</span></a>
+                </li>
+                <li class="">
+                  <a data-toggle="tab" href="#tab3"><i class="fa fa-exclamation-triangle tab-icon"></i> <span>Risks</span></a>
+                </li>
+                <li class="">
+                  <a data-toggle="tab" href="#tab4"><i class="fa fa-check tab-icon"></i> <span>Tests</span></a>
+                </li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div class="tab-pane padding-20 active slide-left" id="tab1">
+                  
+                  <div class="row row-same-height">
+                    <div class="col-md-5 b-r b-dashed b-grey ">
+                      <div class="padding-30 ">
+                        
+                        {{ render_field(form.package) }}
+                        {{ render_date(form.creation_date) }}
+                        {{ render_field(form.device_version) }}
+                        
+                  </div>
+                  </div>
+                  <div class="col-md-7">
+                      <div class="padding-30">
+                       
+                        {{ render_field(form.minor_version) }}
+                        {{ render_field(form.revision_version) }}
+                        {{ render_toggle(form.requires_update_add) }}
+
+                        </div>
+                  </div>
+                  </div>
+                   </div>     
+                <div class="tab-pane slide-left padding-20" id="tab2">
+                  <div class="  row row-same-height">
+                    
+        
+                    <div class="panel panel-default issue_container bg-success">
+                          
+                          <div class="panel-body">
+                           
+                      <div class="col-md-5 b-r b-dashed b-grey ">
+                      <div class="padding-30 ">
+                        
+                        {{ render_field(issue.issue_type,label_class="text-white") }}
+                        {{ render_textarea(issue.description,label_class="text-white") }}
+                        
+                  </div>
+                  </div>
+                  <div class="col-md-7">
+                      <div class="padding-30">
+                       
+                        {{ render_field(issue.srs,label_class="text-white") }}
+                        {{ render_multi(issue.affected_components,label_class="text-white") }}
+                        {{ render_field(issue.comments,label_class="text-white") }}
+                        </div>
+                  </div>
+
+                          </div>
+                        </div>
+                        
+                      </div>
+
+                    
+           
+
+                
+                 <div class="col-md-7">
+                      <div class="padding-30">
+                      <button class="add_issue_btn btn btn-primary pull-right" type="button">
+                        <span>Add Issue</span>
+                      </button>
+                  </div>
+                  </div>
+
+                    
+                    </div>
+
+                <div class="tab-pane slide-left padding-20" id="tab3">
+                 
+                 <div class="  row row-same-height">
+                    
+                    <div class="panel panel-default risk_container bg-danger">
+                          
+                          <div class="panel-body">
+                           
+                      <div class="col-md-5 b-r b-dashed b-grey ">
+                      <div class="padding-30 ">
+                        
+                        {{ render_field(risk.parent_issue,label_class="text-white") }}
+                        {{ render_textarea(risk.description,label_class="text-white") }}
+
+                  </div>
+                  </div>
+                  <div class="col-md-7">
+                      <div class="padding-30">
+                       
+                        {{ render_multi(risk.mitigations,label_class="text-white") }}
+                        {{ render_field(risk.mitigation_description,label_class="text-white") }}
+                        </div>
+                  </div>
+
+                          </div>
+                        </div>
+                        
+                      </div>
+
+                 <div class="col-md-7">
+                      <div class="padding-30">
+                      <button class="add_risk_btn btn btn-primary pull-right" type="button">
+                        <span>Add Risk</span>
+                      </button>
+                  </div>
+                  </div>
+
+                    
+                </div>
+                <div class="tab-pane slide-left padding-20" id="tab4">
+                  
+             <div class="  row row-same-height">
+                    
+                    <div class="panel panel-default test_container bg-complete">
+                          
+                          <div class="panel-body">
+                           
+                      <div class="col-md-5 b-r b-dashed b-grey ">
+                      <div class="padding-30 ">
+                        
+                        {{ render_field(test.test_type,label_class="text-white") }}
+                        {{ render_field(test.tested_in,label_class="text-white") }}
+
+                  </div>
+                  </div>
+                  <div class="col-md-7">
+                      <div class="padding-30">
+                       
+                        {{ render_multi(test.components,label_class="text-white") }}
+                        {{ render_textarea(test.description,label_class="text-white") }}
+                        </div>
+                  </div>
+
+                          </div>
+                        </div>
+                        
+                      </div>
+
+                 <div class="col-md-7">
+                      <div class="padding-30">
+                      <button class="add_test_btn btn btn-primary pull-right" type="button">
+                        <span>Add Test</span>
+                      </button>
+                  </div>
+                  </div>
+
+
+                </div>
+                <div class="padding-20 bg-white">
+                  <ul class="pager wizard">
+                    <li class="next">
+                      <button class="btn btn-primary btn-cons btn-animated from-left fa fa-truck pull-right" type="button">
+                        <span>Next</span>
+                      </button>
+                    </li>
+                    <li class="next finish hidden">
+                      <button class="btn btn-primary btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
+                        <span>Finish</span>
+                      </button>
+                    </li>
+                    <li class="previous first hidden">
+                      <button class="btn btn-default btn-cons btn-animated from-left fa fa-cog pull-right" type="button">
+                        <span>First</span>
+                      </button>
+                    </li>
+                    <li class="previous">
+                      <button class="btn btn-default btn-cons pull-right" type="button">
+                        <span>Previous</span>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+
+          <!-- END CONTAINER FLUID -->
+        <!-- END PAGE CONTENT -->
+
+{% endblock %}

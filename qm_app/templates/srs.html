@@ -1,0 +1,17 @@
+<div class="container">
+	
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#details-{{srs.id}}">Details</a></li>
+        <li><a data-toggle="tab" href="#edit-{{srs.id}}">Edit</a></li>
+    </ul>
+
+	<div class="tab-content">
+       	<div id="details-{{srs.id}}" class="tab-pane fade in active">
+			{% include 'srs_details.html' %}
+		</div>
+		<div id="edit-{{srs.id}}" class="tab-pane fade">
+			{% include 'srs_edit.html' %}
+		</div>
+	</div>
+</div>

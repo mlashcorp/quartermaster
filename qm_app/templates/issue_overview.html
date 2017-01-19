@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<legend>{{issue.issue_id}} Overview</legend>
+{% include 'issue.html' %} 
+
+<div class="container top10">
+	<legend>Related Tests</legend>
+	{% if tests|length > 0 %}
+		{% for test in tests %}
+			{% include 'test_details.html' %}
+		{% endfor %}
+	{% else %}
+		No tests registered.
+	{% endif %}
+	<button type="button" class="btn btn-info btn-mini" data-toggle="collapse" data-target="#add_test">Add test</button>
+</div>			
+<hr/>
+<div class="container collapse out" id="add_test">
+	{% include 'test_edit.html' %}
+</div>
+	
+{% endblock %}

@@ -1,0 +1,41 @@
+
+<table class="table table-bordered  table-striped table-condensed">
+	<tr>
+		<td>Issue id: <a href="{{ url_for("issue_overview", issue_id=issue.issue_id ) }}"><strong>{{ issue.issue_id }}</strong></a></td>
+		<td>Issue type: <strong>{{ issue.issue_type }}</strong></td>
+		<td>Requirement:  <a href="{{ url_for("srs_overview", srs_id=issue.srs.srs_id ) }}"><strong>{{ issue.srs.srs_id }}</strong></td>
+		<td>Created:  <strong>{{ issue.created }}</strong></td>
+		<td>Status:  <strong>{{ issue.status }}</strong></td>
+	</tr>
+	<tr>
+		<td width="20%">
+		Components:
+		</td>
+		<td colspan="4">
+		{% for comp in issue.affected_components %}
+			<strong>{{ comp }}</strong>
+		{%  endfor %}
+		</td>
+	</tr>
+	<tr>
+        <td width="20%">
+        Implemented in:
+        </td>
+        <td colspan="4">
+        {% for impl in issue.implemented_in_aux %}
+            <strong>{{ impl }}</strong>
+        {%  endfor %}
+        </td>
+    </tr>
+	<tr>
+		<td colspan="1">
+		Description:
+		</td>
+		<td colspan="4">
+		  <pre>{{ issue.description }}</pre>
+		</td>
+	</tr>
+
+
+
+</table>

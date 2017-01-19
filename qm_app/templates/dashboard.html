@@ -1,0 +1,40 @@
+{% extends "base_layout.html" %}
+
+{% block userdata %}
+<span class="semi-bold">{{username}}</span> 
+            </div>
+            <div class="dropdown pull-right">
+              <button class="profile-dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="thumbnail-wrapper d32 circular inline m-t-5">
+                <img src="{{ picture }}" alt="" data-src="{{ picture }}" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="32" height="32">
+            </span>
+              </button>
+{% endblock %}
+
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+
+<div class="container">
+
+	<div class="row">
+	<legend>Current releases:</legend>
+	<table class="table table-bordered table-striped table-condensed">
+        <tr>
+        <td colspan="2">Release</td>
+        <td colspan="1">Device </td>
+        <td colspan="2">Creation Date</td>
+        <td colspan="2">Requires ADD update</td>
+        <td colspan="2">Status</td>
+        
+    </tr>
+	{% if releases|length > 0 %}
+		{% for release in releases %}
+			{% include 'release_table_row.html' %}
+		{% endfor %}
+	{% endif %}
+	</table>
+
+	</div>
+</div>
+
+{% endblock %}

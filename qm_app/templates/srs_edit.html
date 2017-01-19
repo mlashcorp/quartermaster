@@ -1,0 +1,23 @@
+{% from "_formhelpers.html" import render_field, render_textarea %}
+
+<div class="container">
+	
+	<form method=post action="{{ url_for("add_srs") }}">
+ 		{{ requirement_form.csrf_token }}
+ 		{% if srs %}
+ 			<input type="hidden" name="id" id="id" value="{{srs.id}}" />
+ 		{% endif %}
+ 	 	<div class="row">
+ 	 		{{ render_field(requirement_form.srs_id,"col-md-4") }}
+ 	 		{{ render_field(requirement_form.created,"col-md-4") }}
+		</div>
+		
+		<div class="row">
+			{{ render_textarea(requirement_form.description, "col-md-12") }}
+  		</div>
+  		
+  		<input class="btn btn-primary" type="submit" value="Apply">
+	</form>
+	
+</div>
+

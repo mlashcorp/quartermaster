@@ -1,0 +1,32 @@
+{% from "_formhelpers.html" import render_field, render_textarea %}
+
+<div class="container" id="add_test">
+	<form method="post" action="{{url_for('add_test')}}" role="form">
+		{{ test_form.csrf_token }}
+		<legend>Add test</legend>
+		
+		{% if test %}
+			<input type="hidden" id="id" name="id" value="{{ test.id if test != None  else ''}}" />
+		{% endif %}
+		<div class="row">
+			{{ render_field(test_form.test_type, "col-md-3") }}
+			{{ render_field(test_form.issues, "col-md-3") }}
+			{{ render_field(test_form.status, "col-md-3") }}
+		</div>
+
+		<div class="row top5">
+			{{ render_textarea(test_form.description, "col-md-12") }}
+		</div>
+
+		<div class="row top5">
+			{{ render_field(test_form.report_location, "col-md-4") }}
+		</div>
+		
+		<div class="row top5	">
+			<div class="col-md-3">
+				<input class="btn btn-primary" type="submit" method="post" value="Apply"/>
+			</div>
+
+		</div>
+	</form>
+</div>

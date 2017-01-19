@@ -1,0 +1,77 @@
+{% from "_formhelpers.html" import render_field, render_textarea %}
+
+<table class="table table-bordered table-striped table-condensed">
+	<tr>
+		<td width="20%">Test Id: <a href="{{ url_for('test_overview', test_id=test.test_id) }}"><strong>{{ test.test_id }}</strong></td>
+		<td>Type: <strong>{{ test.test_type }}</strong></td>
+		<td>Status: <strong>{{ test.status }}</strong></td>
+	</tr>
+	<tr>
+		<td colspan="3" >Issues: 
+		          {% for issue in test.issues %}
+		              <strong><a href="{{ url_for('issue_overview', issue_id=issue.issue_id) }}"> {{ issue.issue_id }} </a>  </strong> 
+		          {% endfor %}
+		</td>
+	</tr>
+    <!-- tr>
+        <td colspan="3" >Components: <strong>{{ test.components }} </strong></td>
+    </tr -->
+	<tr>
+		<td colspan="1" >Description: </td>
+		<td colspan="2"><pre><strong>{{ test.description }}</strong></pre></td>
+	</tr>
+	<tr>
+		<td colspan="1" >Report location: </td>
+		<td colspan="2"><strong>{{ test.report_location }}</strong></td>
+	</tr>
+	<tr>
+		<td colspan="1" >Attachments: </td>
+		<td colspan="2">
+		{% for file in test.attachments %}
+				<ul><a href="/files/{{ file.grid_id }}">{{ file.filename }}</a><a href="/delete_file/{{ test.test_id }}/{{ file.grid_id }}"> <i class="glyphicon glyphicon-remove-sign"></i></a></ul>
+
+			{% endfor %}
+			<div class="hidden-print">
+				<form action="/{{ test.test_id }}/upload_test_attachment" method=post enctype=multipart/form-data>
+
+	   			<input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+
+	      	 <p><input type=file name=file>
+	         <input type=submit value=Upload>
+	         </p>
+	         </form>
+         </div>
+
+	</tr>
+</table>
+
+
+{% if test.steps | length > 0%}
+	<legend>Test steps</legend>
+	<table class="table table-bordered table-striped table-condensed">
+		<tr>
+			<td><strong>Description</strong></td>
+			<td><strong>Expected outcome</strong></td>
+			<td><strong>Actual outcome</strong></td>
+			<td><strong>Evidence</strong></td>
+		</tr>
+		{% for step in test.steps%}
+			<tr>
+				<td width="25%" height="100">
+					{{ step.description }}
+				</td>
+				<td width="25%">
+					{{ step.expected_outcome }}
+				</td>
+				<td width="25%">
+
+				</td>
+
+				<td width="25%">
+
+				</td>
+
+			</tr>
+		{% endfor %}
+	</table>
+{% endif %}

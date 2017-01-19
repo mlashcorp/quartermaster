@@ -1,0 +1,20 @@
+{% from "_formhelpers.html" import render_field, render_textarea %}
+
+
+	<tr>
+		<td width="20%">
+			Release: 
+			<a href="{{ url_for("release_overview", package=release.package.code, major=release.major_version, minor=release.minor_version, revision=release.revision_version) }}">
+				<strong>{{release}}</strong>
+			</a>
+		</td>
+		<td colspan="2" width ="20%">Type: <strong>{{release.package}}</strong></td>
+		<td colspan="1">Device version: <strong>{{release.device_version}}</strong></td>
+		<td colspan="1">Status: <strong>{{release.status}}</strong></td>
+	</a></td></tr>
+	<tr>
+		<td> Release notes </td>
+		<td colspan="4"> <pre>{{release.release_notes}}</pre> </td>
+	</tr>
+
+

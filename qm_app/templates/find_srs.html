@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+{% from "_formhelpers.html" import render_field %}
+
+<div class="container">
+	<div class="row">
+	<form  method="post" role="form" action="/find_srs">
+		{{ search_form.csrf_token }}
+		<legend>Search Software Requirements</legend>
+		
+		<div class="row">
+			{{ render_field(search_form.srs_id,"col-md-2")}}
+			{{ render_field(search_form.description,"col-md-4")}}
+		</div>
+		
+
+
+		<div class="row">
+		    <div class="col-md-11 form-group">
+			    <label>Sort by: </label>
+		    	<label class="radio-inline">
+		    		<input type="radio" name="ord" value="+srs_id"  {% if search_form.ord.data == "+srs_id"%}checked=""{%endif%}>
+		    		{{search_form.srs_id.label}} +
+		    	</label>
+				<label class="radio-inline">
+					<input type="radio" name="ord" value="-srs_id"  {% if search_form.ord.data == "-srs_id"%}checked=""{%endif%}>
+					{{search_form.srs_id.label}} -
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="ord" value="+description"  {% if search_form.ord.data == "+description"%}checked=""{%endif%}>
+					{{search_form.description.label}} +
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="ord" value="-description"  {% if search_form.ord.data == "-description"%}checked=""{%endif%}>
+					{{search_form.description.label}} -
+				</label> 
+	    	</div>
+	    	<div class="col-md-1 form-group">
+	    		<input class="btn btn-primary " type="submit" method="post" value="Search">
+    		</div>
+    	</div>
+
+	</form>
+	</div>
+	<div class="row">
+	<legend>Software Requirements</legend>
+	
+		
+	{% if srss|length > 0 %}
+		{% for srs in srss %}
+			{% include 'srs_details.html' %}
+		{% endfor %}
+	{% endif %}
+	
+	</div>
+</div>
+
+{% endblock %}
